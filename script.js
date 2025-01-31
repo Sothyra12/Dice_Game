@@ -18,6 +18,13 @@ let rolls = 0;
 let score = 0;
 let round = 1;
 
+rollDiceBtn.addEventListener("click", () => {
+  for (let i = 0; i < 5; i++) {
+    diceValuesArr[i] = Math.floor(Math.random() * 6) + 1;
+    listOfAllDice[i].textContent = diceValuesArr[i];
+  }
+});
+
 rulesBtn.addEventListener("click", () => {
   isModalShowing = !isModalShowing;
   if (isModalShowing) {
