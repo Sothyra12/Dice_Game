@@ -18,10 +18,19 @@ let rolls = 0;
 let score = 0;
 let round = 1;
 
-rollDiceBtn.addEventListener("click", () => {
+const rollDice = () => {
   for (let i = 0; i < 5; i++) {
     diceValuesArr[i] = Math.floor(Math.random() * 6) + 1;
     listOfAllDice[i].textContent = diceValuesArr[i];
+  }
+};
+
+rollDiceBtn.addEventListener("click", () => {
+  if (rolls === 3) {
+    alert("Please select a score. You have already made three rolls this round.");
+  } else {
+    rolls++;
+    rollDice();
   }
 });
 
