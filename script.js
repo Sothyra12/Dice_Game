@@ -25,12 +25,18 @@ const rollDice = () => {
   }
 };
 
+const updateStats = () => {
+  rollsElement.textContent = rolls;
+  roundElement.textContent = round;
+};
+
 rollDiceBtn.addEventListener("click", () => {
   if (rolls === 3) {
     alert("Please select a score. You have already made three rolls this round.");
   } else {
     rolls++;
     rollDice();
+    updateStats();
   }
 });
 
