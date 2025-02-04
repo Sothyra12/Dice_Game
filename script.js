@@ -37,9 +37,10 @@ const updateRadioOption = (index, score) => {
 };
 
 const getHighestDuplicates = (numArr) => {
-  const countNumTimes = {};
-  const totalScore = numArr.reduce((acc, currVal) => acc + currVal, 0);
+  const countNumTimes = {}; // store nums appearing many times
+  const totalScore = numArr.reduce((acc, currVal) => acc + currVal, 0); // calculate the total score of the sum of the numArr
 
+  // loop through all elements in the array
   numArr.forEach((element) => {
     countNumTimes[element] = (countNumTimes[element] || 0) + 1;
   });
@@ -62,6 +63,7 @@ rollDiceBtn.addEventListener("click", () => {
     rolls++;
     rollDice();
     updateStats();
+    getHighestDuplicates(diceValuesArr);
   }
 });
 
