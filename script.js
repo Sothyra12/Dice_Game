@@ -36,9 +36,28 @@ const updateRadioOption = (index, score) => {
   scoreSpans[index].textContent = `, score = ${score}`;
 };
 
+const getHighestDuplicates = (numArr) => {
+  const countNumTimes = {};
+  const totalScore = numArr.reduce((acc, currVal) => acc + currVal, 0);
+
+  numArr.forEach((element) => {
+    countNumTimes[element] = (countNumTimes[element] || 0) + 1;
+  });
+
+  const maxCountNumTimes = Math.max(...Object.values(countNumTimes));
+
+  return maxCountNumTimes >= 4
+    ? (updateRadioOption(1, totalScore), updateRadioOption(0, totalScore))
+    : maxCountNumTimes >= 3
+    ? updateRadioOption(0, totalScore)
+    : updateRadioOption(5, 0);
+};
+
 rollDiceBtn.addEventListener("click", () => {
   if (rolls === 3) {
-    alert("Please select a score. You have already made three rolls this round.");
+    alert(
+      "Please select a score. You have already made three rolls this round."
+    );
   } else {
     rolls++;
     rollDice();
