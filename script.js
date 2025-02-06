@@ -36,6 +36,15 @@ const updateRadioOption = (index, score) => {
   scoreSpans[index].textContent = `, score = ${score}`;
 };
 
+const updateScore = (selectedValue, achieved) => {
+  score += Number(selectedValue);
+  totalScoreElement.innerHTML = score;
+  const li = document.createElement("li");
+  li.textContent = `${achieved} : ${selectedValue}`;
+  scoreHistory.appendChild(li);
+  //  scoreHistory.innerHTML += `<li>${achieved} : ${selectedValue}</li>`; same with the code above
+};
+
 const getHighestDuplicates = (numArr) => {
   const countNumTimes = {}; // store nums appearing many times
   const totalScore = numArr.reduce((acc, currVal) => acc + currVal, 0); // calculate the total score of the sum of the numArr
