@@ -99,3 +99,12 @@ rulesBtn.addEventListener("click", () => {
     rulesBtn.textContent = "Show rules";
   }
 });
+
+keepScoreBtn.addEventListener("click", () => {
+  const selectedRadioOption = document.querySelector("#score-options input:checked");
+  if (!selectedRadioOption) {
+    return alert("Please select an option!");
+  } 
+  updateScore(selectedRadioOption.value, selectedRadioOption.id);
+  resetRadioOptions();
+});
