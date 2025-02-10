@@ -63,6 +63,20 @@ const getHighestDuplicates = (numArr) => {
     : updateRadioOption(5, 0);
 };
 
+const detectFullHouse = (arrVal) => {
+  const pair =
+    arrVal.filter((val) => arrVal.indexOf(val) === arrVal.lastIndexOf(val))
+      .length === 2;
+  const triple =
+    arrVal.filter((val) => arrVal.indexOf(val) === arrVal.lastIndexOf(val))
+      .length === 3;
+
+  if (pair && triple) {
+    updateRadioOption(2, 25); // Full House
+  } else {
+    updateRadioOption(5, 0); // No Full House
+  }
+};
 
 const resetRadioOptions = () => {
   scoreInputs.forEach((inputScore) => {
@@ -73,6 +87,18 @@ const resetRadioOptions = () => {
   scoreSpans.forEach((spanScore) => {
     spanScore.textContent = "";
   });
+};
+
+const resetGame = () => {
+  listOfAllDice.forEach((el) => (el.textContent = 0));
+  score = 0;
+  rolls = 0;
+  round = 1;
+  totalScoreElement.textContent = score;
+  scoreHistory.textContent = "";
+  rollsElement.textContent = rolls;
+  roundElement.textContent = round;
+  resetRadioOptions();
 };
 
 rollDiceBtn.addEventListener("click", () => {
@@ -86,6 +112,7 @@ rollDiceBtn.addEventListener("click", () => {
     rollDice();
     updateStats();
     getHighestDuplicates(diceValuesArr);
+    detectFullHouse(diceValuesArr);
   }
 });
 
@@ -101,10 +128,18 @@ rulesBtn.addEventListener("click", () => {
 });
 
 keepScoreBtn.addEventListener("click", () => {
-  const selectedRadioOption = document.querySelector("#score-options input:checked");
+  const selectedRadioOption = document.querySelector(
+    "#score-options input:checked"
+  );
   if (!selectedRadioOption) {
     return alert("Please select an option!");
-  } 
+  }
   updateScore(selectedRadioOption.value, selectedRadioOption.id);
   resetRadioOptions();
+  if (round === 6) {
+    return setTimeout(() => {
+      alert(`Game Over! Your total score is ${score}`);
+      resetGame();
+    }, 500);
+  }
 });
